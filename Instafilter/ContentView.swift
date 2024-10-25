@@ -7,17 +7,45 @@
 
 import SwiftUI
 
+//struct ContentView: View {
+//    @State private var blurAmount = 0.0
+//
+//    var body: some View {
+//        VStack {
+//            Text("¡Hola, mundo!")
+//                .blur(radius: blurAmount)
+//
+//            Slider(value: $blurAmount, in: 0...20)
+//                .onChange(of: blurAmount) { oldValue, newValue in
+//                    print("Nuevo valor es \(newValue)")
+//                }
+//        }
+//    }
+//}
+
 struct ContentView: View {
+    @State private var showingConfirmation = false
+    @State private var backgroundColor = Color.white
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Button("¡Hola, mundo!") {
+            showingConfirmation = true
         }
-        .padding()
+        .frame(width: 300, height: 300)
+        .background(backgroundColor)
+        .confirmationDialog("Cambiar fondo", isPresented: $showingConfirmation) {
+            Button("Rojo") { backgroundColor = .red }
+            Button("Verde") { backgroundColor = .green }
+            Button("Azul") { backgroundColor = .blue }
+            Button("Cancelar", role: .cancel) { }
+        } message: {
+            Text("Selecciona un nuevo color")
+        }
+
     }
+    
 }
+
 
 #Preview {
     ContentView()
