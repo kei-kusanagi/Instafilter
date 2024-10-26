@@ -28,11 +28,16 @@ struct ContentView: View {
     @State private var backgroundColor = Color.white
 
     var body: some View {
-        Button("¡Hola, mundo!") {
+        Button(action: {
             showingConfirmation = true
+        }){
+            Text("¡Hola, mundo!")
+                .foregroundColor(backgroundColor == .blue ?.red : .red)
+            
+            
         }
         .frame(width: 300, height: 300)
-        .background(backgroundColor)
+        
         .confirmationDialog("Cambiar fondo", isPresented: $showingConfirmation) {
             Button("Rojo") { backgroundColor = .red }
             Button("Verde") { backgroundColor = .green }
@@ -41,8 +46,11 @@ struct ContentView: View {
         } message: {
             Text("Selecciona un nuevo color")
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(backgroundColor)
 
     }
+
     
 }
 
