@@ -6,63 +6,21 @@
 //
 
 import SwiftUI
-import PhotosUI
-import SwiftUI
-
 
 struct ContentView: View {
-//    @State private var pickerItem: PhotosPickerItem?
-    @State private var pickerItems = [PhotosPickerItem]()
-
-    @State private var selectedImage: Image?
-    
-    @State private var selectedImages = [Image]()
-
 
     var body: some View{
-        VStack {
-//            PhotosPicker("Selecciona imágenes", selection: $pickerItems, matching: .images)
-//            PhotosPicker("Selecciona imágenes", selection: $pickerItems, maxSelectionCount: 3, matching: .images)
-//            PhotosPicker(selection: $pickerItems, maxSelectionCount: 3, matching: .images) {
-//                Label("Selecciona una foto", systemImage: "photo")
-//            }
-            PhotosPicker(selection: $pickerItems, maxSelectionCount: 3, matching: .any(of: [.images, .not(.screenshots)])) {
-                Label("Selecciona una foto", systemImage: "photo")
-            }
 
+        ShareLink(item: URL(string: "https://www.hackingwithswift.com")!)
+        ShareLink(item: URL(string: "https://www.hackingwithswift.com")!, subject: Text("Learn Swift here"), message: Text("Check out the 100 Days of SwiftUI!"))
+        let example = Image(.example)
 
-//            PhotosPicker("Selecciona una foto", selection: $pickerItem, matching: .images)
-            selectedImage?
-                .resizable()
-                .scaledToFit()
-
-        }
-//        .onChange(of: pickerItem) {
-//            Task {
-//                selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
-//            }
-//        }
-        .onChange(of: pickerItems) {
-            Task {
-                selectedImages.removeAll()
-
-                for item in pickerItems {
-                    if let loadedImage = try await item.loadTransferable(type: Image.self) {
-                        selectedImages.append(loadedImage)
-                    }
-                }
-            }
+        ShareLink(item: example, preview: SharePreview("Singapore Airport", image: example)) {
+            Label("Click to share", systemImage: "airplane")
         }
 
-        ScrollView {
-            ForEach(0..<selectedImages.count, id: \.self) { i in
-                selectedImages[i]
-                    .resizable()
-                    .scaledToFit()
-            }
-        }
 
-    }
+        }
 }
 
 
