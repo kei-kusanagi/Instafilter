@@ -6,22 +6,34 @@
 //
 
 import SwiftUI
+import StoreKit
+
 
 struct ContentView: View {
+    @Environment(\.requestReview) var requestReview
 
-    var body: some View{
+    @State private var taskCount = 0
 
-        ShareLink(item: URL(string: "https://www.hackingwithswift.com")!)
-        ShareLink(item: URL(string: "https://www.hackingwithswift.com")!, subject: Text("Learn Swift here"), message: Text("Check out the 100 Days of SwiftUI!"))
-        let example = Image(.example)
 
-        ShareLink(item: example, preview: SharePreview("Singapore Airport", image: example)) {
-            Label("Click to share", systemImage: "airplane")
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Tareas completadas: \(taskCount)")
+            
+            Button("Completar tarea") {
+                taskCount += 1
+                if taskCount >= 5 {
+                    requestReview()
+                }
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(8)
         }
-
-
-        }
+        .padding()
+    }
 }
+
 
 
 #Preview {
