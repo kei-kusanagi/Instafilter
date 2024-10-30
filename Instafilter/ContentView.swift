@@ -11,10 +11,13 @@ import StoreKit
 
 struct ContentView: View {
     @Environment(\.requestReview) var requestReview
-
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State private var isDarkMode = false
+    
     @State private var taskCount = 0
-
-
+    
+    
     var body: some View {
         VStack(spacing: 20) {
             Text("Tareas completadas: \(taskCount)")
@@ -31,6 +34,25 @@ struct ContentView: View {
             .cornerRadius(8)
         }
         .padding()
+        VStack {
+            Text("Hola, SwiftUI!")
+                .padding()
+                .foregroundColor(isDarkMode ? .white : .black)
+                .background(isDarkMode ? .black : .white)
+            
+            Button(action: {
+                isDarkMode.toggle()
+            }) {
+                Image(systemName: isDarkMode ? "sun.max.fill" : "moon.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(isDarkMode ? .yellow : .blue)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .clipShape(Circle())
+            }
+            .padding()
+        }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }
 
