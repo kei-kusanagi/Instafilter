@@ -10,54 +10,52 @@ import StoreKit
 
 
 struct ContentView: View {
-    @Environment(\.requestReview) var requestReview
-    @Environment(\.colorScheme) var colorScheme
-    
-    @State private var isDarkMode = false
-    
-    @State private var taskCount = 0
-    
-    
+    @State private var processedImage: Image?
+    @State private var filterIntensity = 0.5
+
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Tareas completadas: \(taskCount)")
-            
-            Button("Completar tarea") {
-                taskCount += 1
-                if taskCount >= 5 {
-                    requestReview()
+        NavigationStack {
+            VStack {
+                Spacer()
+
+                if let processedImage {
+                    processedImage
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    ContentUnavailableView("No Picture", systemImage: "photo.badge.plus", description: Text("Tap to import a photo"))
+                }
+
+
+                Spacer()
+
+                HStack {
+                    Text("Intensity")
+                    Slider(value: $filterIntensity)
+                }
+                .padding(.vertical)
+
+                HStack {
+                    Button("Change Filter", action: changeFilter)
+
+
+                    Spacer()
+
+                    // compartir imagen
                 }
             }
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(8)
+            .padding([.horizontal, .bottom])
+            .navigationTitle("Instafilter")
         }
-        .padding()
-        VStack {
-            Text("Hola, SwiftUI!")
-                .padding()
-                .foregroundColor(isDarkMode ? .white : .black)
-                .background(isDarkMode ? .black : .white)
-            
-            Button(action: {
-                isDarkMode.toggle()
-            }) {
-                Image(systemName: isDarkMode ? "sun.max.fill" : "moon.fill")
-                    .font(.largeTitle)
-                    .foregroundColor(isDarkMode ? .yellow : .blue)
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .clipShape(Circle())
-            }
-            .padding()
-        }
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+
     }
+    func changeFilter() {
+        
+    }
+
 }
-
-
 
 #Preview {
     ContentView()
 }
+
