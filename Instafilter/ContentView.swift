@@ -25,10 +25,7 @@ struct ContentView: View {
                 } else {
                     ContentUnavailableView("No Picture", systemImage: "photo.badge.plus", description: Text("Tap to import a photo"))
                 }
-
-
                 Spacer()
-
                 HStack {
                     Text("Intensity")
                     Slider(value: $filterIntensity)
@@ -37,10 +34,7 @@ struct ContentView: View {
 
                 HStack {
                     Button("Change Filter", action: changeFilter)
-
-
                     Spacer()
-
                     // compartir imagen
                 }
             }
@@ -58,4 +52,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
