@@ -99,7 +99,9 @@ struct ContentView: View {
                 Button("Máscara de Enfoque") { setFilter(CIFilter.unsharpMask()) }
                 Button("Viñeta") { setFilter(CIFilter.vignette()) }
                 Button("Cancelar", role: .cancel) { }
-
+                Button("Pointillize") { setFilter(CIFilter.pointillize()) }
+                Button("Bloom") { setFilter(CIFilter.bloom()) }
+                Button("Noir") { setFilter(CIFilter.photoEffectNoir()) }
             }
 
         }
